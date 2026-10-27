@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 class Mahasiswa extends Controller
 {
@@ -52,4 +53,26 @@ class Mahasiswa extends Controller
             exit;
         }
     }
+=======
+<?php
+class Mahasiswa extends Controller {
+    public function index()
+    {
+        $data['judul'] = 'Daftar Mahasiswa';
+        $data['mhs'] = $this->model('Mahasiswa_model')->getAllMahasiswa();
+        $this->view('templates/header', $data);
+        $this->view('mahasiswa/index', $data);
+        $this->view('templates/footer');
+    }
+
+    public function detail($id)
+    {
+        $data['judul'] = 'Detail Mahasiswa';
+        $data['mhs'] = $this->model('Mahasiswa_model')
+        ->getMahasiswaById($id);
+        $this->view('templates/header', $data);
+        $this->view('mahasiswa/detail', $data);
+        $this->view('templates/footer');
+    }
+>>>>>>> 41f2624d6277b3a9def1ad9b61259ca811f6a95c
 }
