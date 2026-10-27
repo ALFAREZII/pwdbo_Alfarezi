@@ -10,17 +10,16 @@ class Database {
 
     public function __construct()
     {
-        //data nameeaemae
-        $dsn = 'mysql:host='.$this->host.';dbname='.$this->dbname.';';
+        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
 
         $option = [
             PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION 
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
-        } catch(PDOException $e){
+        } catch (PDOException $e) {
             die($e->getMessage());
         }
     }
@@ -32,18 +31,18 @@ class Database {
 
     public function bind($param, $value, $type = null)
     {
-        if(is_null($type)){
-            switch(true){
-                case is_int($value) :
+        if (is_null($type)) {
+            switch (true) {
+                case is_int($value):
                     $type = PDO::PARAM_INT;
                     break;
-                case is_bool($value) :
+                case is_bool($value):
                     $type = PDO::PARAM_BOOL;
                     break;
-                case is_null($value) :
+                case is_null($value):
                     $type = PDO::PARAM_NULL;
                     break;
-                default :
+                default:
                     $type = PDO::PARAM_STR;
             }
         }
@@ -66,5 +65,10 @@ class Database {
     {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function rowCount()
+    {
+        return $this->stmt->rowCount();
     }
 }
